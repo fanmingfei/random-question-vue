@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <title>党章题库</title>
+    <link href="./css/reset.css" rel="stylesheet" type="text/css" />
+    <link href="./css/weui.css" rel="stylesheet" type="text/css" />
+    <link href="./css/style.css" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+    <div id="root">
+        <h2>党章题库 <small>题目数{{questions.allLength}}</small>
+        <a href="javascript:;" class="fr weui-btn weui-btn_mini weui-btn_primary" id="showPicker">选题型</a>
+        </h2>
+        <div class="search-panel">
+            <div class="weui-cell weui-cell_vcode">
+                <div class="weui-cell__bd">
+                    <input class="weui-input" type="text" v-model="searchValue" placeholder="搜索题目">
+                </div>
+                <div class="weui-cell__ft">
+                    <button class="weui-vcode-btn" id="searchBtn" v-on:click="search">搜索</button>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="question" v-if="showQuestion">
+                <div class="title">
+                    [{{question.type}}]
+                    <br/>{{question.aid}}.{{question.title}}
+                </div>
+                <ul v-if="question.type!='判断题'">
+                    <li v-if="question.A">{{question.A}}</li>
+                    <li v-if="question.B">{{question.B}}</li>
+                    <li v-if="question.C">{{question.C}}</li>
+                    <li v-if="question.D">{{question.D}}</li>
+                </ul>
+                <ul v-else>
+                    <li>A.对
+                    </li>
+                    <li>B.错
+                    </li>
+                </ul>
+                <div v-if="show">
+                    答案： {{question.ans}}
+                </div>
+            </div>
+            <div v-else>
+                <p class="tip50" v-if="searchList.length == 0">没有搜索到结果</p>
+                <p class="tip50" v-if="searchList.length == 50">最多显示50条，请细化关键词哦</p>
+                <ul class="search-list">
+                    <li class="question" v-for="item in searchList">
+                        <div class="title">
+                            [{{item.type}}] {{item.aid}}.{{item.title}}
+                        </div>
+                        <ul v-if="item.type!='判断题'">
+                            <li v-if="item.A">{{item.A}}</li>
+                            <li v-if="item.B">{{item.B}}</li>
+                            <li v-if="item.C">{{item.C}}</li>
+                            <li v-if="item.D">{{item.D}}</li>
+                        </ul>
+                        <ul v-else>
+                            <li>A.对
+                            </li>
+                            <li>B.错
+                            </li>
+                        </ul>
+                        答案： {{item.ans}}
+                    </li>
+                </ul>
+            </div>
+            <div class="button-sp-area">
+                <a href="javascript:;" class="weui-btn weui-btn_plain-default" v-on:click="showAnswer" v-if="showQuestion">查看答案</a>
+                <a href="javascript:;" class="weui-btn weui-btn_plain-primary" v-on:click="getRandom" v-if="showQuestion">下一题</a>
+                <a href="javascript:;" class="weui-btn weui-btn_plain-primary" v-on:click="getRandom" v-else>继续答题</a>
+            </div>
+        </div>
+    </div>
+    <script src="./js/zepto.js"></script>
+    <script src="./js/weui.js"></script>
+    <script src="./js/vue.js"></script>
+    <script src="./js/questions.js"></script>
+    <script src="./js/index.js"></script>
+    <script type="text/javascript">
+    $('#showPicker').on('click', function() {
+        weui.picker([{
+            label: '全部',
+            value: 0
+        }, {
+            label: '判断题',
+            value: 1
+        }, {
+            label: '单项选择题',
+            value: 2
+        }, {
+            label: '多项选择题',
+            value: 3
+        }], {
+            onConfirm: function(result) {
+                app.setType(result[0]);
+            }
+        });
+    });
+    </script>
+</body>
+
+</html>
