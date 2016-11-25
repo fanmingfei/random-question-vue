@@ -67,4 +67,28 @@ var app = new Vue({
 })
 
 app.getRandom();
-console.timeEnd()
+console.timeEnd();
+$('.load-frame').hide();
+
+
+
+
+$('#showPicker').on('click', function() {
+    weui.picker([{
+        label: '全部',
+        value: 0
+    }, {
+        label: '判断题',
+        value: 1
+    }, {
+        label: '单项选择题',
+        value: 2
+    }, {
+        label: '多项选择题',
+        value: 3
+    }], {
+        onConfirm: function(result) {
+            app.setType(result[0]);
+        }
+    });
+});

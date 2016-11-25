@@ -11,6 +11,7 @@
 </head>
 
 <body>
+    <div class="load-frame"></div>
     <div id="root">
         <h2>党章题库 <small>题目数{{questions.allLength}}</small>
         <a href="javascript:;" class="fr weui-btn weui-btn_mini weui-btn_primary" id="showPicker">选题型</a>
@@ -86,27 +87,6 @@
     <script src="./js/vue.js"></script>
     <script src="./js/questions.js"></script>
     <script src="./js/index.js"></script>
-    <script type="text/javascript">
-    $('#showPicker').on('click', function() {
-        weui.picker([{
-            label: '全部',
-            value: 0
-        }, {
-            label: '判断题',
-            value: 1
-        }, {
-            label: '单项选择题',
-            value: 2
-        }, {
-            label: '多项选择题',
-            value: 3
-        }], {
-            onConfirm: function(result) {
-                app.setType(result[0]);
-            }
-        });
-    });
-    </script>
 </body>
 
 </html>
