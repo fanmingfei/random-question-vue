@@ -25,7 +25,6 @@ var app = new Vue({
         },
         getRandom: function() {
             var list = [];
-            console.log(this.questionType)
             switch (this.questionType) {
                 case 0:
                     list = this.questions.allQuestions;
